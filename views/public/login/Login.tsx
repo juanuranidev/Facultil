@@ -15,18 +15,20 @@ import {
   FormControl,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
+import GoogleButton from "./components/GoogleButton";
 
 export default function Login() {
   const router = useRouter();
 
   return (
-    <Container maxW="full" bg="background.secondary" p="0" h="100vh">
+    <Container maxW="full" bg="background.secondary" p="0">
       <Container
         px="0"
+        h="100vh"
         maxW="full"
         display="flex"
         borderRadius="md"
-        justifyContent="space-between"
+        justifyContent="center"
       >
         <VStack
           w="100%"
@@ -35,18 +37,21 @@ export default function Login() {
           justifyContent="space-between"
         >
           <Card
-            bg="background.primary"
-            p="5"
-            w={{ base: "100%", sm: "96" }}
-            margin="auto"
+            py="12"
             shadow="xl"
+            margin="auto"
             textAlign="center"
+            bg="background.primary"
+            w={{ base: "100%", sm: "96" }}
           >
             <VStack spacing="5">
               <Heading as="h1" fontSize="2xl">
-                Bienvenido a Facultil
+                BIENVENIDO A FACULTIL
               </Heading>
-              <Button>Continuar con Google</Button>
+              <Text fontWeight="600" pb="5">
+                Inicia sesión en tu cuenta
+              </Text>
+              <GoogleButton />
             </VStack>
           </Card>
           <Flex />
