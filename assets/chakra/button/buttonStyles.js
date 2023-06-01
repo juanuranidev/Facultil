@@ -1,5 +1,38 @@
 export const ButtonStyles = {
   variants: {
+    confirm: {
+      bg: "#ed394d",
+      shadow: "md",
+      borderRadius: "0.5rem",
+      color: "#ffffff",
+      _hover: {
+        bg: "#ee4c5e",
+        _disabled: {
+          bg: "#ed394d",
+        },
+      },
+      _active: {
+        bg: "#ef5d6e",
+        shadow: "md",
+        _disabled: {
+          shadow: "none",
+        },
+      },
+      _disabled: {
+        _hover: {
+          bg: "#f27f8c",
+        },
+      },
+    },
+    cancel: {
+      color: "#ed394d",
+      _hover: {
+        decoration: "udnerline",
+      },
+      _active: {
+        color: "#ee4c5e",
+      },
+    },
     solid: {
       bg: "#ed394d",
       shadow: "md",
