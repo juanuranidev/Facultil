@@ -1,25 +1,8 @@
-import React, { useState } from "react";
-import {
-  Flex,
-  Card,
-  Link,
-  Text,
-  Image,
-  Input,
-  VStack,
-  Button,
-  Heading,
-  Checkbox,
-  FormLabel,
-  Container,
-  FormControl,
-} from "@chakra-ui/react";
-import { useRouter } from "next/router";
+import React from "react";
+import { Flex, Card, Text, VStack, Heading, Container } from "@chakra-ui/react";
 import GoogleButton from "./components/GoogleButton";
 
 export default function Login() {
-  const router = useRouter();
-
   return (
     <Container maxW="full" bg="background.secondary" p="0">
       <Container

@@ -1,23 +1,21 @@
 import React from "react";
 import Login from "views/public/login/Login";
-import { useSession, signOut, getSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
+import { GetServerSidePropsContext } from "next";
 
 export default function Home() {
-  const { data: session } = useSession();
-  console.log(session);
-
-  if (!session) return <Login />;
-
-  return <button onClick={async () => await signOut()}>Cerrar sesión</button>;
+  return <Login />;
 }
 
-export const getServerSideProps = async (context: any) => {
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
   const session = await getSession(context);
 
-  if (!session) {
+  if (session) {
     return {
       redirect: {
-        destination: "/",
+        destination: "/student/subjects",
       },
     };
   }
