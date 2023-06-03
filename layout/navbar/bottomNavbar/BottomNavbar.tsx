@@ -1,69 +1,99 @@
-import React from "react";
-import {
-  Flex,
-  Card,
-  Link,
-  Text,
-  Input,
-  VStack,
-  Button,
-  Heading,
-  Checkbox,
-  FormLabel,
-  Container,
-  FormControl,
-} from "@chakra-ui/react";
-import BlackBooks from "assets/images/navbar/BlackBooks.png";
-import PrimaryBooks from "assets/images/navbar/PrimaryBooks.png";
-import Image from "next/image";
-import BlackCalendar from "assets/images/navbar/BlackCalendar.png";
+import { Container, Link, Text, VStack } from "@chakra-ui/react";
 import { useRouter } from "next/router";
+import { motion } from "framer-motion";
+import Image from "next/image";
+import RedNavbarBook from "assets/icons/navbar/RedNavbarBook.png";
+import WhiteNavbarBook from "assets/icons/navbar/WhiteNavbarBook.png";
+import RedNavbarCalendar from "assets/icons/navbar/RedNavbarCalendar.png";
+import WhiteNavbarCalendar from "assets/icons/navbar/WhiteNavbarCalendar.png";
 
 export default function BottomNavbar() {
   const { asPath } = useRouter();
 
-  console.log(asPath);
+  const isSubjectsView = asPath === "/student/subjects";
+  const isCalendarView = asPath === "/student/calendar";
+
   return (
     <Container
+      height="4rem"
       maxW="full"
       bg="background.primary"
-      //   bg="red"
       p="0"
       display="flex"
-      position="absolute"
+      position="fixed"
       bottom="0"
-      shadow="brand_shadow_lg"
+      left="0"
+      shadow="rgba(17, 17, 26, 0.1) 0px 0px 16px;"
     >
       <Container
-        py="2"
+        p="0"
         maxW="full"
         display="flex"
+        alignItems="center"
         borderRadius="md"
         justifyContent="space-evenly"
       >
-        <VStack>
-          <Image
-            src={
-              asPath === "/student/subjects" ? PrimaryBooks.src : BlackBooks.src
-            }
-            width="40"
-            height="40"
-            alt="Materias"
-          />
-          <Text fontSize="sm" fontWeight="600">
-            Materias
-          </Text>
+        <VStack spacing="1" w="50%">
+          <motion.div
+            style={{ width: "100%" }}
+            transition={{ delay: 0.25 }}
+            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: "-5%" }}
+          >
+            <Link
+              w="100%"
+              // paddingY="2"
+              display="flex"
+              alignItems="center"
+              flexDirection="column"
+              href="/student/subjects"
+            >
+              <Image
+                src={isSubjectsView ? RedNavbarBook.src : WhiteNavbarBook.src}
+                width="25"
+                height="25"
+                alt="Materias"
+              />
+              <Text
+                fontSize="xs"
+                fontWeight="600"
+                color={isSubjectsView ? "text.secondary" : "text.tertiary"}
+              >
+                Materias
+              </Text>
+            </Link>
+          </motion.div>
         </VStack>
-        <VStack>
-          <Image
-            src={BlackCalendar.src}
-            width="40"
-            height="40"
-            alt="calendario"
-          />
-          <Text fontSize="sm" fontWeight="600">
-            Calendario
-          </Text>
+        <VStack spacing="1" w="50%">
+          <motion.div
+            style={{ width: "100%" }}
+            transition={{ delay: 0.25 }}
+            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: "-5%" }}
+          >
+            <Link
+              w="100%"
+              // paddingY="2"
+              display="flex"
+              alignItems="center"
+              flexDirection="column"
+              href="/student/calendar"
+            >
+              <Image
+                src={isCalendarView ? RedNavbarCalendar : WhiteNavbarCalendar}
+                width="25"
+                height="25"
+                alt="calendario"
+              />
+              <Text
+                fontSize="xs"
+                fontWeight="600"
+                color={isCalendarView ? "text.secondary" : "text.tertiary"}
+              >
+                Calendario
+              </Text>
+            </Link>
+          </motion.div>
         </VStack>
       </Container>
     </Container>
