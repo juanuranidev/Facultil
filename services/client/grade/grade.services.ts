@@ -1,7 +1,3 @@
-import Subject from "models/server/subject.schema";
-import mongoose from "mongoose";
-import mongodbConnect from "config/mongodbApiConnext";
-import { SubjectModel } from "models/client/subject.model";
 import { request } from "util/request";
 import { GradeModel } from "models/client/grade.model";
 
@@ -31,6 +27,24 @@ export const handlePostGradeService = async (
         user_id: user_id,
       },
       data: { grade: grade },
+    });
+  } catch (error) {
+    return error;
+  }
+};
+
+export const handleDeleteGradeService = async (
+  user_id: string,
+  grade_id: string
+) => {
+  try {
+    return await request({
+      method: "DELETE",
+      url: "/api/grade/",
+      params: {
+        user_id: user_id,
+        grade_id: grade_id,
+      },
     });
   } catch (error) {
     return error;
