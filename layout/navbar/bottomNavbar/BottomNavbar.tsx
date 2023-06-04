@@ -15,7 +15,6 @@ export default function BottomNavbar() {
 
   return (
     <Container
-      height="4rem"
       maxW="full"
       bg="background.primary"
       p="0"
@@ -31,9 +30,8 @@ export default function BottomNavbar() {
         display="flex"
         alignItems="center"
         borderRadius="md"
-        justifyContent="space-evenly"
       >
-        <VStack spacing="1" w="50%">
+        <VStack spacing="1" w="50%" h="4rem" justifyContent="center">
           <motion.div
             style={{ width: "100%" }}
             transition={{ delay: 0.25 }}
@@ -45,6 +43,8 @@ export default function BottomNavbar() {
               // paddingY="2"
               display="flex"
               alignItems="center"
+              h="4rem"
+              justifyContent="center"
               flexDirection="column"
               href="/student/subjects"
             >
@@ -64,7 +64,7 @@ export default function BottomNavbar() {
             </Link>
           </motion.div>
         </VStack>
-        <VStack spacing="1" w="50%">
+        <VStack spacing="1" w="50%" h="4rem" justifyContent="center">
           <motion.div
             style={{ width: "100%" }}
             transition={{ delay: 0.25 }}
@@ -74,6 +74,8 @@ export default function BottomNavbar() {
             <Link
               w="100%"
               // paddingY="2"
+              h="4rem"
+              justifyContent="center"
               display="flex"
               alignItems="center"
               flexDirection="column"
