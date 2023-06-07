@@ -7,7 +7,7 @@ export default function Calendar() {
   return (
     <CustomProvider locale={esAr}>
       <BottomNavbar />
-      <CalendarComponent />;
+      <CalendarComponent onSelect={(date) => console.log("SELECT", date)} />;
     </CustomProvider>
   );
 }
