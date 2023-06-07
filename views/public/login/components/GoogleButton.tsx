@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { signIn } from "next-auth/react";
 import { Button } from "@chakra-ui/react";
-import Image from "next/image";
 import GoogleIcon from "assets/icons/GoogleIcon.svg";
+import Image from "next/image";
 
 export default function GoogleButton() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
