@@ -21,6 +21,7 @@
     "eslint-config-next": "13.4.2",
     "formik": "^2.4.0",
     "framer-motion": "^10.12.10",
+    "moment": "^2.29.4",
     "mongodb": "^5.5.0",
     "mongoose": "^7.2.1",
     "next": "13.4.2",
