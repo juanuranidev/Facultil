@@ -25,7 +25,7 @@ interface GradeProps {
 export default function Grade({ index, grade, onDelete }: GradeProps) {
   return (
     <motion.div
-      style={{ marginBottom: "2rem" }}
+      style={{ marginBottom: "1rem" }}
       animate={{ opacity: 1, y: 0 }}
       initial={{ opacity: 0, y: "-5%" }}
       transition={{ delay: index * 0.1 }}
