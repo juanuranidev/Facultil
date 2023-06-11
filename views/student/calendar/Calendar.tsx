@@ -12,18 +12,9 @@ import moment from "moment";
 import { AnimatePresence, motion } from "framer-motion";
 import ModalCalendarEvents from "components/modals/modalCalendarEvents/ModalCalendarEvents";
 
-const fecha = new Date();
-const formatoEntrada = "DD/MM/YYYY";
-const formatoSalida = "YYYY-MM-DDTHH:mm:ssZ";
-
-const objetoMoment = moment.utc(fecha, formatoEntrada);
-const fechaISO8601 = objetoMoment.format(formatoSalida);
-
-console.log(fechaISO8601);
-
-const events = [
+const eventsTEST = [
   {
-    date: "12/11/2000",
+    date: "10/06/2023",
     events: [
       { time: "09:30 pm", title: "Products Introduction Meeting" },
       { time: "12:30 pm", title: "Client entertaining" },
@@ -34,7 +25,7 @@ const events = [
     ],
   },
   {
-    date: "13/11/2000",
+    date: "12/06/2023",
     events: [
       { time: "09:30 pm", title: "Products Introduction Meeting" },
       { time: "12:30 pm", title: "Client entertaining" },
@@ -45,7 +36,7 @@ const events = [
     ],
   },
   {
-    date: "14/11/2000",
+    date: "15/06/2023",
     events: [
       { time: "09:30 pm", title: "Products Introduction Meeting" },
       { time: "12:30 pm", title: "Client entertaining" },
@@ -58,38 +49,23 @@ const events = [
 ];
 
 function formatEvents(events: any) {
-  const formattedEvents: Record<string, any[]> = {};
+  const formattedEvents: any = {};
 
-  events.forEach((event: any) => {
-    const formattedDate = moment(event.date, "DD/MM/YYYY").format("MM/DD/YYYY");
+  for (const event of events) {
+    const formattedDate: any = moment(event.date, "DD/MM/YYYY").format(
+      "DD/MM/YYYY"
+    );
     formattedEvents[formattedDate] = event.events;
-  });
+  }
 
   return formattedEvents;
 }
 
-console.log(formatEvents(events));
-
 function getTodoList(date: Date) {
-  const formattedDate: any = moment(date).format("MM/DD/YYYY");
+  const formattedDate: any = moment(date).format("DD/MM/YYYY");
+  const formattedEvents = formatEvents(eventsTEST);
 
-  const events: any = {
-    "06/10/2023": [
-      { time: "10:30 am", title: "Meeting" },
-      { time: "12:00 pm", title: "Lunch" },
-    ],
-    "06/15/2023": [
-      { time: "09:30 pm", title: "Products Introduction Meeting" },
-      { time: "12:30 pm", title: "Client entertaining" },
-      { time: "02:00 pm", title: "Product design discussion" },
-      { time: "05:00 pm", title: "Product test and acceptance" },
-      { time: "06:30 pm", title: "Reporting" },
-      { time: "10:00 pm", title: "Going home to walk the dog" },
-    ],
-    // Agrega más fechas y eventos según sea necesario
-  };
-
-  return events[formattedDate] || [];
+  return formattedEvents[formattedDate] || [];
 }
 
 function renderCell(date: any) {
@@ -139,12 +115,13 @@ export default function Calendar() {
 
   const handleOpenCalendarEvents = (date: Date) => {
     setModalCalendarEvents(true);
+    console.log(moment(date).format("DD/MM/YYYY"));
   };
 
   const handleChangeMonth = (date: Date) => {
-    const firstDayOfMonth = moment(date).startOf("month");
-    const lastDayOfMonth = moment(date).endOf("month").format("YYYY-MM-DD");
-    console.log(firstDayOfMonth, lastDayOfMonth);
+    const firstDayOfMonth = moment(date).startOf("month").format("DD/MM/YYYY");
+    const lastDayOfMonth = moment(date).endOf("month").format("DD/MM/YYYY");
+    console.log(moment(date).format("DD/MM/YYYY"));
   };
 
   return (
