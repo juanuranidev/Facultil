@@ -16,34 +16,100 @@ const eventsTEST = [
   {
     date: "10/06/2023",
     events: [
-      { time: "09:30 pm", title: "Products Introduction Meeting" },
-      { time: "12:30 pm", title: "Client entertaining" },
-      { time: "02:00 pm", title: "Product design discussion" },
-      { time: "05:00 pm", title: "Product test and acceptance" },
-      { time: "06:30 pm", title: "Reporting" },
-      { time: "10:00 pm", title: "Going home to walk the dog" },
+      {
+        time: "09:30",
+        title: "Products Introduction Meeting Products Introduction Meeting",
+      },
+      {
+        time: "09:30",
+        title: "Products Introduction Meeting Products Introduction Meeting",
+      },
+      {
+        time: "09:30",
+        title: "Products Introduction Meeting Products Introduction Meeting",
+      },
+      {
+        time: "09:30",
+        title: "Products Introduction Meeting Products Introduction Meeting",
+      },
+      {
+        time: "09:30",
+        title: "Products Introduction Meeting Products Introduction Meeting",
+      },
+      {
+        time: "09:30",
+        title: "Products Introduction Meeting Products Introduction Meeting",
+      },
+      {
+        time: "09:30",
+        title: "Products Introduction Meeting Products Introduction Meeting",
+      },
+      { time: "12:30", title: "Client entertaining" },
+      { time: "02:00", title: "Product design discussion" },
+      { time: "05:00", title: "Product test and acceptance" },
+      { time: "06:30", title: "Reporting" },
+      { time: "10:00", title: "Going home to walk the dog" },
     ],
   },
   {
     date: "12/06/2023",
     events: [
-      { time: "09:30 pm", title: "Products Introduction Meeting" },
-      { time: "12:30 pm", title: "Client entertaining" },
-      { time: "02:00 pm", title: "Product design discussion" },
-      { time: "05:00 pm", title: "Product test and acceptance" },
-      { time: "06:30 pm", title: "Reporting" },
-      { time: "10:00 pm", title: "Going home to walk the dog" },
+      {
+        time: "09:30",
+        title: "Products Introduction Meeting Products Introduction Meeting",
+      },
+      {
+        time: "09:30",
+        title: "Products Introduction Meeting Products Introduction Meeting",
+      },
+      {
+        time: "09:30",
+        title: "Products Introduction Meeting Products Introduction Meeting",
+      },
+      {
+        time: "09:30",
+        title: "Products Introduction Meeting Products Introduction Meeting",
+      },
+      { time: "06:30", title: "Reporting" },
+      {
+        time: "09:30",
+        title: "Products Introduction Meeting Products Introduction Meeting",
+      },
+      { time: "05:00", title: "Product test and acceptance" },
+      {
+        time: "09:30",
+        title: "Products Introduction Meeting Products Introduction Meeting",
+      },
+      {
+        time: "09:30",
+        title:
+          "Products Introduction Meeting Products Introduction Meeting s Introduction Meeting s Introduction Meeting s Introduction Meeting s Introduction Meeting",
+      },
+      {
+        time: "09:30",
+        title: "Products Introduction Meeting Products Introduction Meeting",
+      },
+      { time: "12:30", title: "Client entertaining" },
+      {
+        time: "09:30",
+        title: "Products Introduction Meeting Products Introduction Meeting",
+      },
+      { time: "02:00", title: "Product design discussion" },
+      { time: "10:00", title: "Going home to walk the dog" },
     ],
   },
   {
     date: "15/06/2023",
     events: [
-      { time: "09:30 pm", title: "Products Introduction Meeting" },
-      { time: "12:30 pm", title: "Client entertaining" },
-      { time: "02:00 pm", title: "Product design discussion" },
-      { time: "05:00 pm", title: "Product test and acceptance" },
-      { time: "06:30 pm", title: "Reporting" },
-      { time: "10:00 pm", title: "Going home to walk the dog" },
+      {
+        time: "09:30",
+        title: "Products Introduction Meeting Products Introduction Meeting",
+      },
+      { time: "12:30", title: "Client entertaining" },
+      { time: "02:00", title: "Product design discussion" },
+      { time: "05:00", title: "Product test and acceptance" },
+      { time: "06:30", title: "Reporting" },
+      { time: "10:00", title: "Going home to walk the dog" },
     ],
   },
 ];
@@ -110,12 +176,24 @@ function renderCell(date: any) {
 }
 
 export default function Calendar() {
-  const [actualMonth, setActualMonth] = useState();
+  const [dayEvents, setDayEvents] = useState([]);
+  const [monthEvents, setMonthEvents] = useState(eventsTEST);
   const [modalCalendarEvents, setModalCalendarEvents] = useState(false);
 
   const handleOpenCalendarEvents = (date: Date) => {
     setModalCalendarEvents(true);
-    console.log(moment(date).format("DD/MM/YYYY"));
+
+    const selectedDate = moment(date).format("DD/MM/YYYY");
+    const dayEvents: any = monthEvents.find(
+      (monthEvent: any) => monthEvent.date === selectedDate
+    );
+
+    console.log("AAA", dayEvents);
+    if (dayEvents?.events?.length) {
+      setDayEvents(dayEvents.events);
+    } else {
+      setDayEvents([]);
+    }
   };
 
   const handleChangeMonth = (date: Date) => {
@@ -138,6 +216,7 @@ export default function Calendar() {
       <ModalCalendarEvents
         isOpen={modalCalendarEvents}
         onClose={() => setModalCalendarEvents(false)}
+        events={dayEvents}
       />
     </CustomProvider>
   );
