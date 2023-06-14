@@ -1,65 +1,59 @@
 import {
-  Text,
   Flex,
+  Text,
   Image,
+  Input,
+  Select,
   Button,
   Drawer,
   DrawerBody,
+  FormControl,
   DrawerFooter,
   DrawerHeader,
   DrawerContent,
   DrawerOverlay,
-  Menu,
-  MenuButton,
-  MenuList,
-  Input,
-  FormControl,
-  FormLabel,
-  MenuItem,
-  Select,
 } from "@chakra-ui/react";
 import CloseIcon from "assets/icons/general/CloseIcon.png";
 import Trash from "assets/icons/general/Trash.png";
-import { motion } from "framer-motion";
-import { useState } from "react";
-import { useFormik } from "formik";
 import { addNewEventSchema } from "components/modals/modalCalendarEvents/Util";
+import { EventModel } from "models/client/event.model";
+import { useFormik } from "formik";
+import { useState } from "react";
+import { motion } from "framer-motion";
 
 interface ModalCalendarEventsProps {
-  // body: string;
   isOpen: boolean;
   onClose: () => void;
   // onSubmit: (data: any) => void;
-  // isLoading: boolean;
   events: any;
+  dateSelected: string;
 }
 
 export default function ModalCalendarEvents({
-  // body,
   isOpen,
   onClose,
   events,
-}: // onSubmit,
-// isLoading,
-ModalCalendarEventsProps) {
-  const [showDiv, setShowDiv] = useState(false);
+  dateSelected,
+}: ModalCalendarEventsProps) {
+  const [showDiv, setShowDiv] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [addNewEvent, setAddNewEvent] = useState<boolean>(false);
   const [eventSelected, setEventSelected] = useState<number | null>(null);
-  const [addNewEvent, setAddNewEvent] = useState(false);
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues: {
         time: "",
         title: "",
+        date: dateSelected,
         is_active: true,
       },
-      onSubmit: (values: any) => {
+      onSubmit: (values: EventModel) => {
         console.log(values);
       },
       validationSchema: addNewEventSchema,
     });
 
-  console.log(events);
   return (
     <Drawer size="xl" placement="bottom" onClose={onClose} isOpen={isOpen}>
       <DrawerOverlay />
@@ -157,6 +151,14 @@ ModalCalendarEventsProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ type: "spring", stiffness: 260, damping: 20 }}
           >
+            <Flex mb="5" alignItems="center">
+              <Text mx="2" fontSize="md">
+                Fecha:
+              </Text>
+              <Text m="0" fontSize="md" fontWeight="600">
+                {dateSelected}
+              </Text>
+            </Flex>
             <form onSubmit={handleSubmit} style={{ width: "100%" }}>
               <FormControl
                 mb="5"
@@ -218,7 +220,9 @@ ModalCalendarEventsProps) {
               <Button variant="link" onClick={() => setAddNewEvent(false)}>
                 Cancelar
               </Button>
-              <Button variant="solid">Eliminar</Button>
+              <Button variant="solid" onClick={() => handleSubmit()}>
+                Agregar
+              </Button>
             </Flex>
           </motion.div>
         ) : null}
