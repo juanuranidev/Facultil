@@ -29,7 +29,7 @@ import {
   handleDeleteSubjectService,
   handleGetSubjectsService,
   handlePostSubjectService,
-} from "services/client/subject/subject.services";
+} from "services/client/subject.services";
 import SubjectsList from "components/subjectsList/SubjectsList";
 import ModalConfirm from "components/modals/modalConfirm/ModalConfirm";
 import ModalAddSubject from "components/modals/modalAddSubject/ModalAddSubject";

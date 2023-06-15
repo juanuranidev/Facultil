@@ -27,8 +27,8 @@ import {
   handleDeleteGradeService,
   handleGetGradesService,
   handlePostGradeService,
-} from "services/client/grade/grade.services";
-import { handleGetSubjectByIdService } from "services/client/subject/subject.services";
+} from "services/client/grade.services";
+import { handleGetSubjectByIdService } from "services/client/subject.services";
 import { SubjectModel } from "models/client/subject.model";
 import { UserContext } from "context/UserContext";
 import { GradeModel } from "models/client/grade.model";
