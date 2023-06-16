@@ -3,9 +3,9 @@ import {
   handlePostSubjectService,
   handleDeleteSubjectService,
   handleGetSubjectByIdService,
-} from "services/server/subject/subject.services";
+} from "services/server/subject.services";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { handleGetUserById } from "services/server/student/student.services";
+import { handleGetUserById } from "services/server/student.services";
 import { ResponseModel } from "models/client/response.model";
 import mongodbConnect from "config/mongodbApiConnext";
 

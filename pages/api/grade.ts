@@ -3,16 +3,16 @@ import {
   handlePostSubjectService,
   handleDeleteSubjectService,
   handleGetSubjectByIdService,
-} from "services/server/subject/subject.services";
+} from "services/server/subject.services";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { handleGetUserById } from "services/server/student/student.services";
+import { handleGetUserById } from "services/server/student.services";
 import { ResponseModel } from "models/client/response.model";
 import mongodbConnect from "config/mongodbApiConnext";
 import {
   handleDeleteGradeService,
   handleGetGradesService,
   handlePostGradeService,
-} from "services/server/grade/grade.services";
+} from "services/server/grade.services";
 import { getSession } from "next-auth/react";
 
 export default async function handler(
@@ -67,7 +67,6 @@ export default async function handler(
             error: error,
           });
         }
-        break;
       case "POST":
         try {
           const { grade } = req.body;
@@ -94,7 +93,6 @@ export default async function handler(
             error: error,
           });
         }
-        break;
       case "DELETE":
         try {
           const { grade_id } = req.query;
@@ -120,7 +118,6 @@ export default async function handler(
             error: error,
           });
         }
-        break;
     }
   } catch (error) {
     return res.status(500).json({
