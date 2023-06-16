@@ -178,21 +178,21 @@ function renderCell(date: any) {
 export default function Calendar() {
   const [dayEvents, setDayEvents] = useState([]);
   const [monthEvents, setMonthEvents] = useState(eventsTEST);
+  const [dateSelected, setDateSelected] = useState<string>("");
   const [modalCalendarEvents, setModalCalendarEvents] = useState(false);
 
   const handleOpenCalendarEvents = (date: Date) => {
+    const selectedDate = moment(date).format("DD/MM/YYYY");
+
+    setDateSelected(selectedDate);
     setModalCalendarEvents(true);
 
-    const selectedDate = moment(date).format("DD/MM/YYYY");
     const dayEvents: any = monthEvents.find(
       (monthEvent: any) => monthEvent.date === selectedDate
     );
 
-    console.log("AAA", dayEvents);
     if (dayEvents?.events?.length) {
       setDayEvents(dayEvents.events);
-    } else {
-      setDayEvents([]);
     }
   };
 
@@ -200,6 +200,12 @@ export default function Calendar() {
     const firstDayOfMonth = moment(date).startOf("month").format("DD/MM/YYYY");
     const lastDayOfMonth = moment(date).endOf("month").format("DD/MM/YYYY");
     console.log(moment(date).format("DD/MM/YYYY"));
+  };
+
+  const handleCloseModalCalendarEventes = () => {
+    setDayEvents([]);
+    setDateSelected("");
+    setModalCalendarEvents(false);
   };
 
   return (
@@ -212,12 +218,14 @@ export default function Calendar() {
         // defaultValue={new Date()}
         onSelect={(date) => handleOpenCalendarEvents(date)}
       />
-
-      <ModalCalendarEvents
-        isOpen={modalCalendarEvents}
-        onClose={() => setModalCalendarEvents(false)}
-        events={dayEvents}
-      />
+      {modalCalendarEvents ? (
+        <ModalCalendarEvents
+          isOpen={modalCalendarEvents}
+          onClose={handleCloseModalCalendarEventes}
+          events={dayEvents}
+          dateSelected={dateSelected}
+        />
+      ) : null}
     </CustomProvider>
   );
 }
