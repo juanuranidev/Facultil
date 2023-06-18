@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import esAr from "rsuite/locales/es_AR";
 import {
   CustomProvider,
@@ -11,6 +11,9 @@ import BottomNavbar from "layout/navbar/bottomNavbar/BottomNavbar";
 import moment from "moment";
 import { AnimatePresence, motion } from "framer-motion";
 import ModalCalendarEvents from "components/modals/modalCalendarEvents/ModalCalendarEvents";
+import { UserContext } from "context/UserContext";
+import { getEventsService } from "services/client/event.services";
+import { useToast } from "@chakra-ui/react";
 
 const eventsTEST = [
   {
@@ -176,6 +179,9 @@ function renderCell(date: any) {
 }
 
 export default function Calendar() {
+  const toast = useToast();
+  const { user } = useContext(UserContext);
+
   const [dayEvents, setDayEvents] = useState([]);
   const [monthEvents, setMonthEvents] = useState(eventsTEST);
   const [dateSelected, setDateSelected] = useState<string>("");
@@ -208,6 +214,16 @@ export default function Calendar() {
     setModalCalendarEvents(false);
   };
 
+  const handleGetEvents = async () => {
+    try {
+      const response = await getEventsService(user._id);
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    handleGetEvents();
+  }, []);
+
   return (
     <CustomProvider locale={esAr}>
       <BottomNavbar />
@@ -223,6 +239,7 @@ export default function Calendar() {
           isOpen={modalCalendarEvents}
           onClose={handleCloseModalCalendarEventes}
           events={dayEvents}
+          user={user}
           dateSelected={dateSelected}
         />
       ) : null}

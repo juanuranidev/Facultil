@@ -12,6 +12,7 @@ import {
   DrawerHeader,
   DrawerContent,
   DrawerOverlay,
+  useToast,
 } from "@chakra-ui/react";
 import CloseIcon from "assets/icons/general/CloseIcon.png";
 import Trash from "assets/icons/general/Trash.png";
@@ -20,25 +21,58 @@ import { EventModel } from "models/client/event.model";
 import { useFormik } from "formik";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { UserModel } from "models/client/user.model";
+import { postEventService } from "services/client/event.services";
 
 interface ModalCalendarEventsProps {
-  isOpen: boolean;
-  onClose: () => void;
-  // onSubmit: (data: any) => void;
   events: any;
+  isOpen: boolean;
+  user: UserModel;
+  // onSubmit: (data: any) => void;
+  onClose: () => void;
   dateSelected: string;
 }
 
 export default function ModalCalendarEvents({
+  user,
+  events,
   isOpen,
   onClose,
-  events,
   dateSelected,
 }: ModalCalendarEventsProps) {
+  const toast = useToast();
+
   const [showDiv, setShowDiv] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [addNewEvent, setAddNewEvent] = useState<boolean>(false);
   const [eventSelected, setEventSelected] = useState<number | null>(null);
+  console.log(user);
+
+  const handlePostEvent = async (event: EventModel) => {
+    setIsLoading(true);
+    try {
+      const response: any = await postEventService(user._id, event);
+
+      setIsLoading(false);
+      onClose();
+
+      toast({
+        isClosable: true,
+        status: "success",
+        position: "bottom-right",
+        title: response.data.message,
+      });
+    } catch (error: any) {
+      console.log(error);
+      setIsLoading(false);
+      toast({
+        isClosable: true,
+        status: "error",
+        position: "bottom-right",
+        title: error?.response?.data?.message,
+      });
+    }
+  };
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
@@ -49,7 +83,7 @@ export default function ModalCalendarEvents({
         is_active: true,
       },
       onSubmit: (values: EventModel) => {
-        console.log(values);
+        handlePostEvent(values);
       },
       validationSchema: addNewEventSchema,
     });
