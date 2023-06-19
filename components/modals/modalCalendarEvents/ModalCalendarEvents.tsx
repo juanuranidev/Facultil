@@ -46,7 +46,6 @@ export default function ModalCalendarEvents({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [addNewEvent, setAddNewEvent] = useState<boolean>(false);
   const [eventSelected, setEventSelected] = useState<number | null>(null);
-  console.log(user);
 
   const handlePostEvent = async (event: EventModel) => {
     setIsLoading(true);
@@ -79,7 +78,7 @@ export default function ModalCalendarEvents({
       initialValues: {
         time: "",
         title: "",
-        date: dateSelected,
+        date: new Date(dateSelected).toISOString(),
         is_active: true,
       },
       onSubmit: (values: EventModel) => {
