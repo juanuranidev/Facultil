@@ -1,13 +1,17 @@
 import { request } from "util/request";
 import { EventModel } from "models/client/event.model";
 
-export const getEventsService = async (user_id: string) => {
+export const getEventsService = async (
+  user_id: string,
+  dateFormatted: string
+) => {
   try {
     return await request({
       method: "GET",
       url: "/api/event/",
       params: {
         user_id: user_id,
+        date: dateFormatted,
       },
     });
   } catch (error) {
