@@ -14,15 +14,16 @@ import {
   DrawerOverlay,
   useToast,
 } from "@chakra-ui/react";
-import CloseIcon from "assets/icons/general/CloseIcon.png";
-import Trash from "assets/icons/general/Trash.png";
 import { addNewEventSchema } from "components/modals/modalCalendarEvents/Util";
+import { postEventService } from "services/client/event.services";
 import { EventModel } from "models/client/event.model";
+import { UserModel } from "models/client/user.model";
 import { useFormik } from "formik";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { UserModel } from "models/client/user.model";
-import { postEventService } from "services/client/event.services";
+import CloseIcon from "assets/icons/general/CloseIcon.png";
+import moment from "moment";
+import Trash from "assets/icons/general/Trash.png";
 
 interface ModalCalendarEventsProps {
   events: any;
@@ -41,7 +42,7 @@ export default function ModalCalendarEvents({
   dateSelected,
 }: ModalCalendarEventsProps) {
   const toast = useToast();
-
+  console.log(dateSelected);
   const [showDiv, setShowDiv] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [addNewEvent, setAddNewEvent] = useState<boolean>(false);
@@ -78,7 +79,7 @@ export default function ModalCalendarEvents({
       initialValues: {
         time: "",
         title: "",
-        date: new Date(dateSelected).toISOString(),
+        date: dateSelected,
         is_active: true,
       },
       onSubmit: (values: EventModel) => {
@@ -189,7 +190,7 @@ export default function ModalCalendarEvents({
                 Fecha:
               </Text>
               <Text m="0" fontSize="md" fontWeight="600">
-                {dateSelected}
+                {moment(dateSelected).format("DD/MM/YYYY")}
               </Text>
             </Flex>
             <form onSubmit={handleSubmit} style={{ width: "100%" }}>
