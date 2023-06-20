@@ -15,107 +15,107 @@ import { UserContext } from "context/UserContext";
 import { getEventsService } from "services/client/event.services";
 import { useToast } from "@chakra-ui/react";
 
-const eventsTEST = [
-  {
-    date: "10/06/2023",
-    events: [
-      {
-        time: "09:30",
-        title: "Products Introduction Meeting Products Introduction Meeting",
-      },
-      {
-        time: "09:30",
-        title: "Products Introduction Meeting Products Introduction Meeting",
-      },
-      {
-        time: "09:30",
-        title: "Products Introduction Meeting Products Introduction Meeting",
-      },
-      {
-        time: "09:30",
-        title: "Products Introduction Meeting Products Introduction Meeting",
-      },
-      {
-        time: "09:30",
-        title: "Products Introduction Meeting Products Introduction Meeting",
-      },
-      {
-        time: "09:30",
-        title: "Products Introduction Meeting Products Introduction Meeting",
-      },
-      {
-        time: "09:30",
-        title: "Products Introduction Meeting Products Introduction Meeting",
-      },
-      { time: "12:30", title: "Client entertaining" },
-      { time: "02:00", title: "Product design discussion" },
-      { time: "05:00", title: "Product test and acceptance" },
-      { time: "06:30", title: "Reporting" },
-      { time: "10:00", title: "Going home to walk the dog" },
-    ],
-  },
-  {
-    date: "12/06/2023",
-    events: [
-      {
-        time: "09:30",
-        title: "Products Introduction Meeting Products Introduction Meeting",
-      },
-      {
-        time: "09:30",
-        title: "Products Introduction Meeting Products Introduction Meeting",
-      },
-      {
-        time: "09:30",
-        title: "Products Introduction Meeting Products Introduction Meeting",
-      },
-      {
-        time: "09:30",
-        title: "Products Introduction Meeting Products Introduction Meeting",
-      },
-      { time: "06:30", title: "Reporting" },
-      {
-        time: "09:30",
-        title: "Products Introduction Meeting Products Introduction Meeting",
-      },
-      { time: "05:00", title: "Product test and acceptance" },
-      {
-        time: "09:30",
-        title: "Products Introduction Meeting Products Introduction Meeting",
-      },
-      {
-        time: "09:30",
-        title:
-          "Products Introduction Meeting Products Introduction Meeting s Introduction Meeting s Introduction Meeting s Introduction Meeting s Introduction Meeting",
-      },
-      {
-        time: "09:30",
-        title: "Products Introduction Meeting Products Introduction Meeting",
-      },
-      { time: "12:30", title: "Client entertaining" },
-      {
-        time: "09:30",
-        title: "Products Introduction Meeting Products Introduction Meeting",
-      },
-      { time: "02:00", title: "Product design discussion" },
-      { time: "10:00", title: "Going home to walk the dog" },
-    ],
-  },
-  {
-    date: "15/06/2023",
-    events: [
-      {
-        time: "09:30",
-        title: "Products Introduction Meeting Products Introduction Meeting",
-      },
-      { time: "12:30", title: "Client entertaining" },
-      { time: "02:00", title: "Product design discussion" },
-      { time: "05:00", title: "Product test and acceptance" },
-      { time: "06:30", title: "Reporting" },
-      { time: "10:00", title: "Going home to walk the dog" },
-    ],
-  },
-];
+// const eventsTEST = [
+//   {
+//     date: "10/06/2023",
+//     events: [
+//       {
+//         time: "09:30",
+//         title: "Products Introduction Meeting Products Introduction Meeting",
+//       },
+//       {
+//         time: "09:30",
+//         title: "Products Introduction Meeting Products Introduction Meeting",
+//       },
+//       {
+//         time: "09:30",
+//         title: "Products Introduction Meeting Products Introduction Meeting",
+//       },
+//       {
+//         time: "09:30",
+//         title: "Products Introduction Meeting Products Introduction Meeting",
+//       },
+//       {
+//         time: "09:30",
+//         title: "Products Introduction Meeting Products Introduction Meeting",
+//       },
+//       {
+//         time: "09:30",
+//         title: "Products Introduction Meeting Products Introduction Meeting",
+//       },
+//       {
+//         time: "09:30",
+//         title: "Products Introduction Meeting Products Introduction Meeting",
+//       },
+//       { time: "12:30", title: "Client entertaining" },
+//       { time: "02:00", title: "Product design discussion" },
+//       { time: "05:00", title: "Product test and acceptance" },
+//       { time: "06:30", title: "Reporting" },
+//       { time: "10:00", title: "Going home to walk the dog" },
+//     ],
+//   },
+//   {
+//     date: "12/06/2023",
+//     events: [
+//       {
+//         time: "09:30",
+//         title: "Products Introduction Meeting Products Introduction Meeting",
+//       },
+//       {
+//         time: "09:30",
+//         title: "Products Introduction Meeting Products Introduction Meeting",
+//       },
+//       {
+//         time: "09:30",
+//         title: "Products Introduction Meeting Products Introduction Meeting",
+//       },
+//       {
+//         time: "09:30",
+//         title: "Products Introduction Meeting Products Introduction Meeting",
+//       },
+//       { time: "06:30", title: "Reporting" },
+//       {
+//         time: "09:30",
+//         title: "Products Introduction Meeting Products Introduction Meeting",
+//       },
+//       { time: "05:00", title: "Product test and acceptance" },
+//       {
+//         time: "09:30",
+//         title: "Products Introduction Meeting Products Introduction Meeting",
+//       },
+//       {
+//         time: "09:30",
+//         title:
+//           "Products Introduction Meeting Products Introduction Meeting s Introduction Meeting s Introduction Meeting s Introduction Meeting s Introduction Meeting",
+//       },
+//       {
+//         time: "09:30",
+//         title: "Products Introduction Meeting Products Introduction Meeting",
+//       },
+//       { time: "12:30", title: "Client entertaining" },
+//       {
+//         time: "09:30",
+//         title: "Products Introduction Meeting Products Introduction Meeting",
+//       },
+//       { time: "02:00", title: "Product design discussion" },
+//       { time: "10:00", title: "Going home to walk the dog" },
+//     ],
+//   },
+//   {
+//     date: "15/06/2023",
+//     events: [
+//       {
+//         time: "09:30",
+//         title: "Products Introduction Meeting Products Introduction Meeting",
+//       },
+//       { time: "12:30", title: "Client entertaining" },
+//       { time: "02:00", title: "Product design discussion" },
+//       { time: "05:00", title: "Product test and acceptance" },
+//       { time: "06:30", title: "Reporting" },
+//       { time: "10:00", title: "Going home to walk the dog" },
+//     ],
+//   },
+// ];
 
 function formatEvents(events: any) {
   const formattedEvents: any = {};
@@ -132,7 +132,7 @@ function formatEvents(events: any) {
 
 function getTodoList(date: Date) {
   const formattedDate: any = moment(date).format("DD/MM/YYYY");
-  const formattedEvents = formatEvents(eventsTEST);
+  const formattedEvents = formatEvents([]);
 
   return formattedEvents[formattedDate] || [];
 }
@@ -183,26 +183,27 @@ export default function Calendar() {
   const { user } = useContext(UserContext);
 
   const [dayEvents, setDayEvents] = useState([]);
-  const [monthEvents, setMonthEvents] = useState(eventsTEST);
-  const [dateSelected, setDateSelected] = useState<string>("");
+  const [monthEvents, setMonthEvents] = useState([]);
+  const [dateSelected, setDateSelected] = useState<any>("");
   const [modalCalendarEvents, setModalCalendarEvents] = useState(false);
 
   const handleOpenCalendarEvents = (date: Date) => {
-    const selectedDate = moment(date).format("DD/MM/YYYY");
+    // const selectedDate = moment(date).format("DD/MM/YYYY");
 
-    setDateSelected(selectedDate);
+    setDateSelected(date);
     setModalCalendarEvents(true);
 
-    const dayEvents: any = monthEvents.find(
-      (monthEvent: any) => monthEvent.date === selectedDate
-    );
+    // const dayEvents: any = monthEvents.find(
+    //   (monthEvent: any) => monthEvent.date === selectedDate
+    // );
 
-    if (dayEvents?.events?.length) {
-      setDayEvents(dayEvents.events);
-    }
+    // if (dayEvents?.events?.length) {
+    //   setDayEvents(dayEvents.events);
+    // }
   };
 
   const handleChangeMonth = (date: Date) => {
+    console.log("wadaoidnawoidnaoidnaoid");
     const firstDayOfMonth = moment(date).startOf("month").format("DD/MM/YYYY");
     const lastDayOfMonth = moment(date).endOf("month").format("DD/MM/YYYY");
     console.log(moment(date).format("DD/MM/YYYY"));
@@ -214,22 +215,29 @@ export default function Calendar() {
     setModalCalendarEvents(false);
   };
 
-  const handleGetEvents = async () => {
+  const handleGetEvents = async (date: Date) => {
     try {
-      const response = await getEventsService(user._id);
-    } catch (error) {}
+      const dateFormatted: string = new Date(date).toISOString();
+      const response = await getEventsService(user._id, dateFormatted);
+
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
-    handleGetEvents();
-  }, []);
+    if (user) {
+      handleGetEvents(new Date());
+    }
+  }, [user]);
 
   return (
     <CustomProvider locale={esAr}>
       <BottomNavbar />
       <CalendarComponent
         renderCell={renderCell}
-        onMonthChange={(date) => handleChangeMonth(date)}
+        onMonthChange={(date) => handleGetEvents(date)}
         // onSelect={(date: string) => handleChangeMonth(date)}
         // defaultValue={new Date()}
         onSelect={(date) => handleOpenCalendarEvents(date)}
