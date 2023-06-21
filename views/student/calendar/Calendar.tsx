@@ -15,168 +15,27 @@ import { UserContext } from "context/UserContext";
 import { getEventsService } from "services/client/event.services";
 import { useToast } from "@chakra-ui/react";
 
-// const eventsTEST = [
-//   {
-//     date: "10/06/2023",
-//     events: [
-//       {
-//         time: "09:30",
-//         title: "Products Introduction Meeting Products Introduction Meeting",
-//       },
-//       {
-//         time: "09:30",
-//         title: "Products Introduction Meeting Products Introduction Meeting",
-//       },
-//       {
-//         time: "09:30",
-//         title: "Products Introduction Meeting Products Introduction Meeting",
-//       },
-//       {
-//         time: "09:30",
-//         title: "Products Introduction Meeting Products Introduction Meeting",
-//       },
-//       {
-//         time: "09:30",
-//         title: "Products Introduction Meeting Products Introduction Meeting",
-//       },
-//       {
-//         time: "09:30",
-//         title: "Products Introduction Meeting Products Introduction Meeting",
-//       },
-//       {
-//         time: "09:30",
-//         title: "Products Introduction Meeting Products Introduction Meeting",
-//       },
-//       { time: "12:30", title: "Client entertaining" },
-//       { time: "02:00", title: "Product design discussion" },
-//       { time: "05:00", title: "Product test and acceptance" },
-//       { time: "06:30", title: "Reporting" },
-//       { time: "10:00", title: "Going home to walk the dog" },
-//     ],
-//   },
-//   {
-//     date: "12/06/2023",
-//     events: [
-//       {
-//         time: "09:30",
-//         title: "Products Introduction Meeting Products Introduction Meeting",
-//       },
-//       {
-//         time: "09:30",
-//         title: "Products Introduction Meeting Products Introduction Meeting",
-//       },
-//       {
-//         time: "09:30",
-//         title: "Products Introduction Meeting Products Introduction Meeting",
-//       },
-//       {
-//         time: "09:30",
-//         title: "Products Introduction Meeting Products Introduction Meeting",
-//       },
-//       { time: "06:30", title: "Reporting" },
-//       {
-//         time: "09:30",
-//         title: "Products Introduction Meeting Products Introduction Meeting",
-//       },
-//       { time: "05:00", title: "Product test and acceptance" },
-//       {
-//         time: "09:30",
-//         title: "Products Introduction Meeting Products Introduction Meeting",
-//       },
-//       {
-//         time: "09:30",
-//         title:
-//           "Products Introduction Meeting Products Introduction Meeting s Introduction Meeting s Introduction Meeting s Introduction Meeting s Introduction Meeting",
-//       },
-//       {
-//         time: "09:30",
-//         title: "Products Introduction Meeting Products Introduction Meeting",
-//       },
-//       { time: "12:30", title: "Client entertaining" },
-//       {
-//         time: "09:30",
-//         title: "Products Introduction Meeting Products Introduction Meeting",
-//       },
-//       { time: "02:00", title: "Product design discussion" },
-//       { time: "10:00", title: "Going home to walk the dog" },
-//     ],
-//   },
-//   {
-//     date: "15/06/2023",
-//     events: [
-//       {
-//         time: "09:30",
-//         title: "Products Introduction Meeting Products Introduction Meeting",
-//       },
-//       { time: "12:30", title: "Client entertaining" },
-//       { time: "02:00", title: "Product design discussion" },
-//       { time: "05:00", title: "Product test and acceptance" },
-//       { time: "06:30", title: "Reporting" },
-//       { time: "10:00", title: "Going home to walk the dog" },
-//     ],
-//   },
-// ];
+const eventsTEST = [
+  {
+    date: "10/06/2023",
+    events: [
+      {
+        time: "09:30",
+        title: "Products Introduction Meeting Products Introduction Meeting",
+      },
+      {
+        time: "09:30",
+        title: "Products Introduction Meeting Products Introduction Meeting",
+      },
 
-function formatEvents(events: any) {
-  const formattedEvents: any = {};
-
-  for (const event of events) {
-    const formattedDate: any = moment(event.date, "DD/MM/YYYY").format(
-      "DD/MM/YYYY"
-    );
-    formattedEvents[formattedDate] = event.events;
-  }
-
-  return formattedEvents;
-}
-
-function getTodoList(date: Date) {
-  const formattedDate: any = moment(date).format("DD/MM/YYYY");
-  const formattedEvents = formatEvents([]);
-
-  return formattedEvents[formattedDate] || [];
-}
-
-function renderCell(date: any) {
-  const list = getTodoList(date);
-  const displayList = list.filter((item: any, index: any) => index < 2);
-
-  if (list.length) {
-    const moreCount = list.length - displayList.length;
-    const moreItem = (
-      <li>
-        <Whisper
-          placement="top"
-          trigger="click"
-          speaker={
-            <Popover>
-              {list.map((item: any, index: any) => (
-                <p key={index}>
-                  <b>{item.time}</b> - {item.title}
-                </p>
-              ))}
-            </Popover>
-          }
-        >
-          <a>{moreCount} more</a>
-        </Whisper>
-      </li>
-    );
-
-    return (
-      <ul className="calendar-todo-list">
-        {displayList.map((item: any, index: any) => (
-          <li key={index}>
-            <Badge /> <b>{item.time}</b> - {item.title}
-          </li>
-        ))}
-        {moreCount ? moreItem : null}
-      </ul>
-    );
-  }
-
-  return null;
-}
+      { time: "12:30", title: "Client entertaining" },
+      { time: "02:00", title: "Product design discussion" },
+      { time: "05:00", title: "Product test and acceptance" },
+      { time: "06:30", title: "Reporting" },
+      { time: "10:00", title: "Going home to walk the dog" },
+    ],
+  },
+];
 
 export default function Calendar() {
   const toast = useToast();
@@ -218,13 +77,97 @@ export default function Calendar() {
   const handleGetEvents = async (date: Date) => {
     try {
       const dateFormatted: string = new Date(date).toISOString();
-      const response = await getEventsService(user._id, dateFormatted);
-
+      const response: any = await getEventsService(user._id, dateFormatted);
+      setMonthEvents(response.data.data);
       console.log(response);
     } catch (error) {
       console.log(error);
     }
   };
+
+  function formatEvents(events: any) {
+    const formattedEvents: any = [];
+
+    for (const event of events) {
+      const formattedDate = moment(event.date).format("DD/MM/YYYY");
+      const formattedTime = moment(event.date).format("HH:mm");
+
+      const formattedEvent = {
+        time: formattedTime,
+        title: event.title,
+      };
+
+      const existingEvent = formattedEvents.find(
+        (item: any) => item.date === formattedDate
+      );
+
+      if (existingEvent) {
+        existingEvent.events.push(formattedEvent);
+      } else {
+        formattedEvents.push({
+          date: formattedDate,
+          events: [formattedEvent],
+        });
+      }
+    }
+
+    return formattedEvents;
+  }
+
+  function getTodoList(date: any) {
+    const formattedDate = moment(date).format("DD/MM/YYYY");
+    const formattedEvents = formatEvents(monthEvents);
+
+    const selectedEvent = formattedEvents.find(
+      (item: any) => item.date === formattedDate
+    );
+
+    return selectedEvent ? selectedEvent.events : [];
+  }
+
+  function renderCell(date: any) {
+    const list = getTodoList(date);
+    const displayList = list.slice(0, 2);
+
+    if (list.length > 0) {
+      const moreCount = list.length - displayList.length;
+
+      const moreItem = (
+        <li>
+          <Whisper
+            placement="top"
+            trigger="click"
+            speaker={
+              <Popover>
+                {list.map((item: any, index: number) => (
+                  <p key={index}>
+                    <b>{item.time}</b> - {item.title}
+                  </p>
+                ))}
+              </Popover>
+            }
+          >
+            <a>{moreCount} more</a>
+          </Whisper>
+        </li>
+      );
+
+      return (
+        <ul className="calendar-todo-list">
+          {displayList.map((item: any, index: number) => (
+            <li key={index}>
+              <Badge /> <b>{item.time}</b> - {item.title}
+            </li>
+          ))}
+          {moreCount > 0 ? moreItem : null}
+        </ul>
+      );
+    }
+
+    return null;
+  }
+
+  console.log(monthEvents);
 
   useEffect(() => {
     if (user) {
