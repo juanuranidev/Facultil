@@ -128,43 +128,18 @@ export default function Calendar() {
   function renderCell(date: any) {
     const list = getTodoList(date);
     const displayList = list.slice(0, 2);
+    const moreCount = list.length - displayList.length;
 
-    if (list.length > 0) {
-      const moreCount = list.length - displayList.length;
-
-      const moreItem = (
-        <li>
-          <Whisper
-            placement="top"
-            trigger="click"
-            speaker={
-              <Popover>
-                {list.map((item: any, index: number) => (
-                  <p key={index}>
-                    <b>{item.time}</b> - {item.title}
-                  </p>
-                ))}
-              </Popover>
-            }
-          >
-            <a>{moreCount} more</a>
-          </Whisper>
-        </li>
-      );
-
-      return (
-        <ul className="calendar-todo-list">
-          {displayList.map((item: any, index: number) => (
-            <li key={index}>
-              <Badge /> <b>{item.time}</b> - {item.title}
-            </li>
-          ))}
-          {moreCount > 0 ? moreItem : null}
-        </ul>
-      );
-    }
-
-    return null;
+    return (
+      <ul className="calendar-todo-list">
+        {displayList.map((item: any, index: number) => (
+          <li key={index}>
+            <Badge /> <b>{item.time}</b> - {item.title}
+          </li>
+        ))}
+        {moreCount > 0 ? "..." : null}
+      </ul>
+    );
   }
 
   console.log(monthEvents);
