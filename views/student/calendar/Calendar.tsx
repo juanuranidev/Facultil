@@ -13,39 +13,18 @@ import { AnimatePresence, motion } from "framer-motion";
 import ModalCalendarEvents from "components/modals/modalCalendarEvents/ModalCalendarEvents";
 import { UserContext } from "context/UserContext";
 import { getEventsService } from "services/client/event.services";
-import { useToast } from "@chakra-ui/react";
-
-const eventsTEST = [
-  {
-    date: "10/06/2023",
-    events: [
-      {
-        time: "09:30",
-        title: "Products Introduction Meeting Products Introduction Meeting",
-      },
-      {
-        time: "09:30",
-        title: "Products Introduction Meeting Products Introduction Meeting",
-      },
-
-      { time: "12:30", title: "Client entertaining" },
-      { time: "02:00", title: "Product design discussion" },
-      { time: "05:00", title: "Product test and acceptance" },
-      { time: "06:30", title: "Reporting" },
-      { time: "10:00", title: "Going home to walk the dog" },
-    ],
-  },
-];
+import { useToast, useMediaQuery, Flex, Text } from "@chakra-ui/react";
 
 export default function Calendar() {
   const toast = useToast();
   const { user } = useContext(UserContext);
+  const [isMovibile] = useMediaQuery("(max-width: 800px)");
 
   const [dayEvents, setDayEvents] = useState([]);
   const [monthEvents, setMonthEvents] = useState([]);
   const [dateSelected, setDateSelected] = useState<any>("");
   const [modalCalendarEvents, setModalCalendarEvents] = useState(false);
-
+  console.log(isMovibile);
   const handleOpenCalendarEvents = (date: Date) => {
     // const selectedDate = moment(date).format("DD/MM/YYYY");
 
@@ -125,7 +104,7 @@ export default function Calendar() {
     return selectedEvent ? selectedEvent.events : [];
   }
 
-  function renderCell(date: any) {
+  function renderDesktopCell(date: any) {
     const list = getTodoList(date);
     const displayList = list.slice(0, 2);
     const moreCount = list.length - displayList.length;
@@ -142,6 +121,22 @@ export default function Calendar() {
     );
   }
 
+  function renderMobileCell(date: any) {
+    const list = getTodoList(date);
+    const displayList = list.slice(0, 2);
+    const moreCount = list.length - displayList.length;
+
+    return (
+      <Flex alignItems="center" direction="column">
+        {displayList.map((item: any) => (
+          <Badge key={item._id} style={{ marginBottom: "0.1rem" }} />
+        ))}
+
+        {moreCount > 0 ? <Text>...</Text> : null}
+      </Flex>
+    );
+  }
+
   console.log(monthEvents);
 
   useEffect(() => {
@@ -154,7 +149,7 @@ export default function Calendar() {
     <CustomProvider locale={esAr}>
       <BottomNavbar />
       <CalendarComponent
-        renderCell={renderCell}
+        renderCell={isMovibile ? renderMobileCell : renderDesktopCell}
         onMonthChange={(date) => handleGetEvents(date)}
         // onSelect={(date: string) => handleChangeMonth(date)}
         // defaultValue={new Date()}
@@ -162,11 +157,12 @@ export default function Calendar() {
       />
       {modalCalendarEvents ? (
         <ModalCalendarEvents
-          isOpen={modalCalendarEvents}
-          onClose={handleCloseModalCalendarEventes}
-          events={dayEvents}
           user={user}
+          events={dayEvents}
           dateSelected={dateSelected}
+          isOpen={modalCalendarEvents}
+          handleGetEvents={handleGetEvents}
+          onClose={handleCloseModalCalendarEventes}
         />
       ) : null}
     </CustomProvider>

@@ -32,6 +32,7 @@ interface ModalCalendarEventsProps {
   // onSubmit: (data: any) => void;
   onClose: () => void;
   dateSelected: string;
+  handleGetEvents: (date: any) => void;
 }
 
 export default function ModalCalendarEvents({
@@ -40,9 +41,10 @@ export default function ModalCalendarEvents({
   isOpen,
   onClose,
   dateSelected,
+  handleGetEvents,
 }: ModalCalendarEventsProps) {
   const toast = useToast();
-  console.log(dateSelected);
+
   const [showDiv, setShowDiv] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [addNewEvent, setAddNewEvent] = useState<boolean>(false);
@@ -55,6 +57,7 @@ export default function ModalCalendarEvents({
 
       setIsLoading(false);
       onClose();
+      handleGetEvents(new Date(dateSelected).toISOString());
 
       toast({
         isClosable: true,
@@ -136,7 +139,7 @@ export default function ModalCalendarEvents({
                   </motion.div>
                 ))
             : null}
-          {!events.length ? (
+          {!events.length && !addNewEvent ? (
             <Flex w="100%" py="5" justifyContent="center">
               <Text fontSize="lg" fontWeight="600">
                 No tienes eventos
@@ -254,7 +257,12 @@ export default function ModalCalendarEvents({
               <Button variant="link" onClick={() => setAddNewEvent(false)}>
                 Cancelar
               </Button>
-              <Button variant="solid" onClick={() => handleSubmit()}>
+              <Button
+                variant="solid"
+                isLoading={isLoading}
+                isDisabled={isLoading}
+                onClick={() => handleSubmit()}
+              >
                 Agregar
               </Button>
             </Flex>
