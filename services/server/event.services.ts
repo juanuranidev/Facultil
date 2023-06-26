@@ -7,22 +7,26 @@ import { EventModel } from "models/client/event.model";
 export const getEventsService = async (user: EventModel, date: any) => {
   console.log("date", date);
   try {
-    const first_day_of_month = new Date(date.getFullYear(), date.getMonth(), 1);
-    const last_day_of_month = new Date(
-      date.getFullYear(),
-      date.getMonth() + 1,
-      0
-    );
+    const dateObj = new Date(date);
+    const month = dateObj.getUTCMonth() + 1;
+    const year = dateObj.getUTCFullYear();
 
     const events = await Event.aggregate([
       {
         $match: {
           user_id: new mongoose.Types.ObjectId(user._id),
           is_active: true,
-          date: {
-            $gte: first_day_of_month,
-            $lte: last_day_of_month,
+          $expr: {
+            $eq: [
+              {
+                $month: {
+                  $toDate: { $dateFromString: { dateString: "$date" } },
+                },
+              },
+              month,
+            ],
           },
+          // Resto de las condiciones...
         },
       },
       {
@@ -31,6 +35,7 @@ export const getEventsService = async (user: EventModel, date: any) => {
         },
       },
     ]);
+
     console.log("eventos", events);
     return events;
   } catch (error) {
