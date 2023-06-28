@@ -26,7 +26,7 @@ import moment from "moment";
 import Trash from "assets/icons/general/Trash.png";
 
 interface ModalCalendarEventsProps {
-  events: any;
+  dayEvents: any;
   isOpen: boolean;
   user: UserModel;
   // onSubmit: (data: any) => void;
@@ -37,7 +37,7 @@ interface ModalCalendarEventsProps {
 
 export default function ModalCalendarEvents({
   user,
-  events,
+  dayEvents,
   isOpen,
   onClose,
   dateSelected,
@@ -106,7 +106,7 @@ export default function ModalCalendarEvents({
         </DrawerHeader>
         <DrawerBody maxH="40vh" overflowY="scroll" px="4">
           {!addNewEvent
-            ? events
+            ? dayEvents
                 .sort((a: any, b: any) => (a.time > b.time ? 1 : -1))
                 .map((event: any, index: number) => (
                   <motion.div
@@ -139,14 +139,14 @@ export default function ModalCalendarEvents({
                   </motion.div>
                 ))
             : null}
-          {!events.length && !addNewEvent ? (
+          {!dayEvents.length && !addNewEvent ? (
             <Flex w="100%" py="5" justifyContent="center">
               <Text fontSize="lg" fontWeight="600">
                 No tienes eventos
               </Text>
             </Flex>
           ) : null}
-          {events.length && showDiv ? (
+          {dayEvents.length && showDiv ? (
             <motion.div
               style={{
                 display: "flex",
@@ -160,8 +160,8 @@ export default function ModalCalendarEvents({
             >
               <Text fontSize="md" textAlign="center">
                 ¿Está seguro que desea eliminar el evento{" "}
-                {`${events[eventSelected!]?.time} ${
-                  events[eventSelected!]?.title
+                {`${dayEvents[eventSelected!]?.time} ${
+                  dayEvents[eventSelected!]?.title
                 }`}
                 ?
               </Text>

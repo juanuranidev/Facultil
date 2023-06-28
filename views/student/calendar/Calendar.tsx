@@ -14,6 +14,7 @@ import ModalCalendarEvents from "components/modals/modalCalendarEvents/ModalCale
 import { UserContext } from "context/UserContext";
 import { getEventsService } from "services/client/event.services";
 import { useToast, useMediaQuery, Flex, Text } from "@chakra-ui/react";
+import Header from "layout/header/Header";
 
 export default function Calendar() {
   const toast = useToast();
@@ -24,12 +25,23 @@ export default function Calendar() {
   const [monthEvents, setMonthEvents] = useState([]);
   const [dateSelected, setDateSelected] = useState<any>("");
   const [modalCalendarEvents, setModalCalendarEvents] = useState(false);
-  console.log(isMovibile);
+  // console.log(isMovibile);
+
   const handleOpenCalendarEvents = (date: Date) => {
     // const selectedDate = moment(date).format("DD/MM/YYYY");
 
     setDateSelected(date);
     setModalCalendarEvents(true);
+    // console.log(monthEvents);
+    console.log(date);
+
+    setDayEvents(
+      monthEvents.filter(
+        (event: any) =>
+          moment(event.date).format("DD/MM/YYYY") ===
+          moment(date).format("DD/MM/YYYY")
+      )
+    );
 
     // const dayEvents: any = monthEvents.find(
     //   (monthEvent: any) => monthEvent.date === selectedDate
@@ -137,7 +149,7 @@ export default function Calendar() {
     );
   }
 
-  console.log(monthEvents);
+  // console.log(monthEvents);
 
   useEffect(() => {
     if (user) {
@@ -146,25 +158,28 @@ export default function Calendar() {
   }, [user]);
 
   return (
-    <CustomProvider locale={esAr}>
-      <BottomNavbar />
-      <CalendarComponent
-        renderCell={isMovibile ? renderMobileCell : renderDesktopCell}
-        onMonthChange={(date) => handleGetEvents(date)}
-        // onSelect={(date: string) => handleChangeMonth(date)}
-        // defaultValue={new Date()}
-        onSelect={(date) => handleOpenCalendarEvents(date)}
-      />
-      {modalCalendarEvents ? (
-        <ModalCalendarEvents
-          user={user}
-          events={dayEvents}
-          dateSelected={dateSelected}
-          isOpen={modalCalendarEvents}
-          handleGetEvents={handleGetEvents}
-          onClose={handleCloseModalCalendarEventes}
+    <>
+      <Header />
+      <CustomProvider locale={esAr}>
+        <BottomNavbar />
+        <CalendarComponent
+          renderCell={isMovibile ? renderMobileCell : renderDesktopCell}
+          onMonthChange={(date) => handleGetEvents(date)}
+          // onSelect={(date: string) => handleChangeMonth(date)}
+          // defaultValue={new Date()}
+          onSelect={(date) => handleOpenCalendarEvents(date)}
         />
-      ) : null}
-    </CustomProvider>
+        {modalCalendarEvents ? (
+          <ModalCalendarEvents
+            user={user}
+            dayEvents={dayEvents}
+            dateSelected={dateSelected}
+            isOpen={modalCalendarEvents}
+            handleGetEvents={handleGetEvents}
+            onClose={handleCloseModalCalendarEventes}
+          />
+        ) : null}
+      </CustomProvider>
+    </>
   );
 }
