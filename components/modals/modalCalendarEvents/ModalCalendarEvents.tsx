@@ -111,20 +111,20 @@ export default function ModalCalendarEvents({
                 .map((event: any, index: number) => (
                   <motion.div
                     style={{
-                      display: showDiv ? "none" : "flex",
+                      marginBottom: "2rem",
                       alignItems: "flex-start",
                       justifyContent: "space-between",
-                      marginBottom: "2rem",
+                      display: showDiv ? "none" : "flex",
                     }}
                     key={index}
                     animate={{ opacity: 1, y: 0 }}
                     initial={{ opacity: 0, y: "-5%" }}
                     transition={{ delay: index * 0.1 }}
                   >
-                    <Text fontWeight="600" mr="2">
-                      {event.time}:
+                    <Text fontWeight="600" w="28">
+                      {event.time}
                     </Text>
-                    <Text w="100%" m="0">
+                    <Text m="0" textAlign="left" w="100%">
                       {event.title}
                     </Text>
                     <Image
@@ -132,9 +132,9 @@ export default function ModalCalendarEvents({
                         setShowDiv(true);
                         setEventSelected(index);
                       }}
-                      src={Trash.src}
                       w="4"
                       mx="2"
+                      src={Trash.src}
                     />
                   </motion.div>
                 ))
