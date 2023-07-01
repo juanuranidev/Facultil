@@ -5,7 +5,6 @@ import { UserModel } from "models/client/user.model";
 import { EventModel } from "models/client/event.model";
 
 export const getEventsService = async (user: EventModel, date: any) => {
-  console.log("date", date);
   try {
     const dateObj = new Date(date);
     const month = dateObj.getUTCMonth() + 1;
@@ -38,8 +37,8 @@ export const getEventsService = async (user: EventModel, date: any) => {
 
     console.log("eventos", events);
     return events;
-  } catch (error) {
-    return error;
+  } catch (error: any) {
+    throw new Error(error);
   }
 };
 
@@ -49,21 +48,21 @@ export const postEventservice = async (user: UserModel, event: EventModel) => {
     const event_saved = await new_event.save();
 
     return event_saved;
-  } catch (error) {
-    return error;
+  } catch (error: any) {
+    throw new Error(error);
   }
 };
 
-// export const handleDeleteEventservice = async (grade_id: any) => {
-//   try {
-//     const grade_deleted = await Grade.findOneAndUpdate(
-//       { _id: grade_id },
-//       { is_active: false },
-//       { new: true }
-//     );
+export const deleteEventService = async (event_id: any) => {
+  try {
+    const event_deleted = await Event.findOneAndUpdate(
+      { new: true },
+      { _id: event_id },
+      { is_active: false }
+    );
 
-//     return grade_deleted;
-//   } catch (error) {
-//     return error;
-//   }
-// };
+    return event_deleted;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};
