@@ -19,6 +19,7 @@ export const UserContext = createContext<UserContextType>(initialValue);
 export const UserContextProvider = ({ children }: any) => {
   const router = useRouter();
   const { data: session } = useSession();
+
   const [user, setUser] = useState<UserModel>();
 
   const handleGetUserInfo = async () => {
