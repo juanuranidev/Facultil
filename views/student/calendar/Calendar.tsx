@@ -1,20 +1,13 @@
 import React, { useContext, useState, useEffect } from "react";
-import esAr from "rsuite/locales/es_AR";
-import {
-  CustomProvider,
-  Calendar as CalendarComponent,
-  Whisper,
-  Popover,
-  Badge,
-} from "rsuite";
-import BottomNavbar from "layout/navbar/bottomNavbar/BottomNavbar";
-import moment from "moment";
-import { AnimatePresence, motion } from "framer-motion";
-import ModalCalendarEvents from "components/modals/modalCalendarEvents/ModalCalendarEvents";
-import { UserContext } from "context/UserContext";
-import { getEventsService } from "services/client/event.services";
+import { CustomProvider, Calendar as CalendarComponent, Badge } from "rsuite";
 import { useToast, useMediaQuery, Flex, Text } from "@chakra-ui/react";
+import { getEventsService } from "services/client/event.services";
+import { UserContext } from "context/UserContext";
+import ModalCalendarEvents from "components/modals/modalCalendarEvents/ModalCalendarEvents";
+import BottomNavbar from "layout/navbar/bottomNavbar/BottomNavbar";
 import Header from "layout/header/Header";
+import moment from "moment";
+import esAr from "rsuite/locales/es_AR";
 
 export default function Calendar() {
   const toast = useToast();
@@ -25,15 +18,10 @@ export default function Calendar() {
   const [monthEvents, setMonthEvents] = useState([]);
   const [dateSelected, setDateSelected] = useState<any>("");
   const [modalCalendarEvents, setModalCalendarEvents] = useState(false);
-  // console.log(isMovibile);
 
   const handleOpenCalendarEvents = (date: Date) => {
-    // const selectedDate = moment(date).format("DD/MM/YYYY");
-
     setDateSelected(date);
     setModalCalendarEvents(true);
-    // console.log(monthEvents);
-    console.log(date);
 
     setDayEvents(
       monthEvents.filter(
@@ -42,14 +30,6 @@ export default function Calendar() {
           moment(date).format("DD/MM/YYYY")
       )
     );
-
-    // const dayEvents: any = monthEvents.find(
-    //   (monthEvent: any) => monthEvent.date === selectedDate
-    // );
-
-    // if (dayEvents?.events?.length) {
-    //   setDayEvents(dayEvents.events);
-    // }
   };
 
   const handleChangeMonth = (date: Date) => {
@@ -148,8 +128,6 @@ export default function Calendar() {
       </Flex>
     );
   }
-
-  // console.log(monthEvents);
 
   useEffect(() => {
     if (user) {

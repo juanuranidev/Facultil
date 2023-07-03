@@ -3,16 +3,16 @@ import {
   Text,
   Image,
   Input,
+  Drawer,
   Select,
   Button,
-  Drawer,
+  useToast,
   DrawerBody,
   FormControl,
   DrawerFooter,
   DrawerHeader,
   DrawerContent,
   DrawerOverlay,
-  useToast,
 } from "@chakra-ui/react";
 import { addNewEventSchema } from "components/modals/modalCalendarEvents/Util";
 import { postEventService } from "services/client/event.services";
@@ -24,6 +24,7 @@ import { motion } from "framer-motion";
 import CloseIcon from "assets/icons/general/CloseIcon.png";
 import moment from "moment";
 import Trash from "assets/icons/general/Trash.png";
+import FormNewEvent from "components/forms/formNewEvent/FormNewEvent";
 
 interface ModalCalendarEventsProps {
   dayEvents: any;
@@ -37,9 +38,9 @@ interface ModalCalendarEventsProps {
 
 export default function ModalCalendarEvents({
   user,
-  dayEvents,
   isOpen,
   onClose,
+  dayEvents,
   dateSelected,
   handleGetEvents,
 }: ModalCalendarEventsProps) {
@@ -49,47 +50,6 @@ export default function ModalCalendarEvents({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [addNewEvent, setAddNewEvent] = useState<boolean>(false);
   const [eventSelected, setEventSelected] = useState<number | null>(null);
-
-  const handlePostEvent = async (event: EventModel) => {
-    setIsLoading(true);
-    try {
-      const response: any = await postEventService(user._id, event);
-
-      setIsLoading(false);
-      onClose();
-      handleGetEvents(new Date(dateSelected).toISOString());
-
-      toast({
-        isClosable: true,
-        status: "success",
-        position: "bottom-right",
-        title: response.data.message,
-      });
-    } catch (error: any) {
-      console.log(error);
-      setIsLoading(false);
-      toast({
-        isClosable: true,
-        status: "error",
-        position: "bottom-right",
-        title: error?.response?.data?.message,
-      });
-    }
-  };
-
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
-    useFormik({
-      initialValues: {
-        time: "",
-        title: "",
-        date: dateSelected,
-        is_active: true,
-      },
-      onSubmit: (values: EventModel) => {
-        handlePostEvent(values);
-      },
-      validationSchema: addNewEventSchema,
-    });
 
   return (
     <Drawer size="xl" placement="bottom" onClose={onClose} isOpen={isOpen}>
@@ -150,9 +110,9 @@ export default function ModalCalendarEvents({
             <motion.div
               style={{
                 display: "flex",
+                marginTop: "1.25rem",
                 flexDirection: "column",
                 marginBottom: "1.25rem",
-                marginTop: "1.25rem",
               }}
               initial={{ opacity: 0, y: "-5%" }}
               animate={{ opacity: 1, y: 0 }}
@@ -174,14 +134,19 @@ export default function ModalCalendarEvents({
             </motion.div>
           ) : null}
         </DrawerBody>
+
         {addNewEvent ? (
+          <FormNewEvent dateSelected={dateSelected} user={user} />
+        ) : null}
+
+        {/* {addNewEvent ? (
           <motion.div
             style={{
               width: "90%",
-              display: "flex",
-              flexDirection: "column",
               margin: "auto",
+              display: "flex",
               marginTop: "1.25rem",
+              flexDirection: "column",
               marginBottom: "1.25rem",
             }}
             initial={{ opacity: 0, y: "-5%" }}
@@ -267,7 +232,7 @@ export default function ModalCalendarEvents({
               </Button>
             </Flex>
           </motion.div>
-        ) : null}
+        ) : null} */}
         {!addNewEvent ? (
           <DrawerFooter borderTopWidth="1px">
             <Button width="100%" onClick={() => setAddNewEvent(true)}>
