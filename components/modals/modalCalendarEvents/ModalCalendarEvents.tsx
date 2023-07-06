@@ -51,6 +51,8 @@ export default function ModalCalendarEvents({
   const [addNewEvent, setAddNewEvent] = useState<boolean>(false);
   const [eventSelected, setEventSelected] = useState<number | null>(null);
 
+  const deleteEvent = dayEvents.length && showDiv;
+
   return (
     <Drawer size="xl" placement="bottom" onClose={onClose} isOpen={isOpen}>
       <DrawerOverlay />
@@ -106,7 +108,7 @@ export default function ModalCalendarEvents({
               </Text>
             </Flex>
           ) : null}
-          {dayEvents.length && showDiv ? (
+          {deleteEvent ? (
             <motion.div
               style={{
                 display: "flex",
