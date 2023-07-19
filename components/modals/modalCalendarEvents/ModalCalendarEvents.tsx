@@ -136,11 +136,9 @@ export default function ModalCalendarEvents({
             </motion.div>
           ) : null}
         </DrawerBody>
-
         {addNewEvent ? (
           <FormNewEvent dateSelected={dateSelected} user={user} />
         ) : null}
-
         <FormNewEvent dateSelected={dateSelected} user={user} />
         {!addNewEvent ? (
           <DrawerFooter borderTopWidth="1px">
