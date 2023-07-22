@@ -12,7 +12,7 @@ const mongodbConnect = async () => {
 };
 
 connection.on("connected", () => {
-  console.log("CONECTADO");
+  console.log("mongodb conectado");
 });
 
 export default mongodbConnect;
