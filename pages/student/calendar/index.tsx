@@ -1,5 +1,3 @@
-import { GetServerSidePropsContext } from "next";
-import { getSession } from "next-auth/react";
 import React from "react";
 import Calendar from "views/student/calendar/Calendar";
 
